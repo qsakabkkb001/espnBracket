@@ -133,22 +133,37 @@ class TestBracketClass(unittest.TestCase):
 
     def test_set_picks(self):
         b2021 = Bracket(teams2021)
+        self.assertEqual(len(b2021.bracket), 32)
+        self.assertEqual(b2021.bracket[18].team1.return_name(), 'Villanova')
+        self.assertEqual(b2021.bracket[18].team2.return_name(), 'Winthorp')
+        self.assertEqual(b2021.bracket[18].pick, None) 
         r1picks = [gonzaga, oklahoma, ucsb, virginia, usc, kansas, oregon, iowa,
                 michigan, lsu, colorado, fsu, ucla, texas, maryland, alabama,
                 baylor, unc, villanova, purdue, texasTech, arkansas, vTech, ohioState,
                 illinois, loyola, tenessee, osu, syracuse, wvu, rutgers, houston]
         b2021.set_picks(r1picks)
+        self.assertEqual(b2021.bracket[18].pick.return_name(), 'Villanova')
+        self.assertEqual(b2021.bracket[41].team1.return_name(), 'Villanova')
+        self.assertEqual(b2021.bracket[41].team2.return_name(), 'Purdue')
+        self.assertEqual(len(b2021.bracket), 48)
         r2picks = [gonzaga, virginia, usc, iowa, michigan, fsu, ucla, alabama, 
                     unc, purdue, texasTech, ohioState, illinois, osu, wvu, houston]
         b2021.set_picks(r2picks)
+        self.assertEqual(len(b2021.bracket), 56)
         r3picks = [gonzaga, iowa, fsu, alabama, purdue, ohioState, illinois, houston]
         b2021.set_picks(r3picks)
+        self.assertEqual(len(b2021.bracket), 60)
         r4picks = [gonzaga, fsu, ohioState, houston]
         b2021.set_picks(r4picks)
+        self.assertEqual(len(b2021.bracket), 62)
         r5picks = [gonzaga, houston]
         b2021.set_picks(r5picks)
+        self.assertEqual(len(b2021.bracket), 63)
         championshipPick = [gonzaga]
         b2021.set_picks(championshipPick)
+        self.assertEqual(b2021.bracket[62].team2.return_name(), 'Houston')
+        self.assertEqual(b2021.bracket[62].pick.return_name(), 'Gonzaga')
+        self.assertEqual(len(b2021.bracket), 63)
     
     def test_set_winner(self):
         b2021 = Bracket(teams2021)
